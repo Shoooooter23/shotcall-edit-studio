@@ -1,25 +1,31 @@
-# ShotCall Edit Studio — free mobile PWA MVP
+# ShotCall v0.3 — browser editor prototype
 
-This is a **working prototype**, not a published app. It runs locally in a browser, scans video frames for motion, selects highlights, and records a silent WebM video using MediaRecorder. No footage is uploaded to a server. It does not yet recognize specific sports plays, preserve sound, export MP4, or offer advanced AI.
+Replace `index.html` and `app.js` in your existing GitHub Pages repository with these files. Keep your existing `icon.svg`, `manifest.webmanifest`, and `sw.js`. In `sw.js`, update the cache version (or remove the old service worker cache) to prevent old assets being served.
 
-## Publish free on GitHub Pages
+## Included
+- Video import and manual clip start/end editing
+- Optional pixel-motion highlight suggestions (not sport-aware AI)
+- Frame capture to PNG
+- Photo preview (not photo-to-video rendering)
+- Optional user-provided music mixed into a WebM recording where supported
+- Six canvas-based enhancement levels from Original 0% to Creative Look 100%
+- Aspect ratio selection, 540p/720p/1080p rendering
 
-1. Create a free GitHub account and a **public** repository called `shotcall-edit-studio`.
-2. Upload **the contents** of this folder (not the ZIP) to the repository root.
-3. Go to **Settings → Pages → Build and deployment** and select **Deploy from a branch**, `main`, `/ (root)`; save.
-4. Wait for GitHub to publish the site and open the URL shown under Pages. This step requires the user to log in and publish; it has **not** been performed by ChatGPT.
-5. On Samsung Chrome, open that HTTPS URL, tap ⋮ → **Add to Home screen** → **Install** or **Create shortcut**.
+## Important limitations
+- This is **not** a native Android app, professional NLE, or sports recognition AI.
+- Exports **WebM**, not MP4; original video audio is not included.
+- Music export depends on Web Audio and MediaRecorder support. Some devices may fail.
+- Export runs in real time and must remain in the foreground. Short clips are recommended.
+- 360-degree native `.insv` is not supported; export a standard video first.
+- Filters may be browser-dependent. No actual beat detection, optical flow, generative AI, ball tracking, or action recognition.
+- Use music you have rights to use. Video/photo files stay on-device.
 
-GitHub Pages is public static hosting: don't put passwords, private footage, or secrets in the repository. The app itself processes chosen video locally and doesn't upload it.
+## Quick testing
+1. Upload a 10-second MP4 and choose **Use full video**.
+2. Set enhancement to **0%** and export. Confirm the result plays.
+3. Try **80%** and compare the result.
+4. Import an audio file, export a short clip, and confirm whether audio is present.
+5. Try **Capture current frame** and save PNG.
 
-## Testing
-
-Choose a short video, select a preset and target duration, tap **Find highlights**, then **Create video**. Export is silent WebM; check compatibility before relying on it for social posting. Longer footage can be slow or crash on phones. Chrome Android is the recommended browser.
-
-## Limitations
-
-Frame sampling and playback are device/browser-dependent. Motion detection may favor camera shake over meaningful plays. Video processing is on-device and battery-intensive. No backend, accounts, storage database, or hosted service is included. PWA install requires HTTPS hosting. If export fails, try a shorter clip.
-
-## Selecting Gallery and Google Photos videos
-
-The file input uses `accept="video/*"`, which asks Android to offer its media picker where supported. The exact picker UI depends on the Android version, browser, and configured Google Photos cloud media provider. Some devices will show a Files interface instead. In that case use the picker’s Photos/Browse options or download the clip from Google Photos to the device before choosing it. This is not a direct Google Photos API integration.
+## Deployment
+Upload the two files to the repository's root, commit, then refresh GitHub Pages. If old UI remains, clear site cache or increment your service worker's cache name.
