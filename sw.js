@@ -1,1 +1,3 @@
-const CACHE='shotcall-v01';const ASSETS=['./','./index.html','./app.js','./manifest.webmanifest','./icon.svg'];self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS))));self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));self.addEventListener('fetch',e=>{if(e.request.method==='GET'&&new URL(e.request.url).origin===location.origin)e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});
+// v0.4: no offline caching. Avoid serving stale editor code from earlier versions.
+self.addEventListener('install',event=>{self.skipWaiting()});
+self.addEventListener('activate',event=>{event.waitUntil((async()=>{for(const key of await caches.keys())await caches.delete(key);await self.clients.claim()})())});
