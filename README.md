@@ -1,25 +1,24 @@
-# ShotCall Action Edit Studio v0.4
+# ShotCall 2.0 — first development build
 
-This is a real browser-based manual sports editing update, **not** a CapCut/Insta360 replacement or sports-recognition AI.
+This is a **prototype**, not a CapCut/Insta360 replacement and not sport-aware AI.
 
 ## Install
-1. Keep a copy of the existing repository before changing files.
-2. Upload `index.html`, `app.js`, `manifest.webmanifest`, `icon.svg`, `sw.js` to the root of the existing GitHub Pages repository, replacing matching names.
-3. Wait for Pages deployment. Open the site in Chrome and refresh. The new code unregisters older service workers and the replacement `sw.js` caches nothing.
+Upload `index.html`, `style.css`, and `app.js` to the **root** of `shotcall-2.0-dev`. Do not upload to `main`. Existing `manifest.webmanifest`, `icon.svg`, and `sw.js` may remain. The new HTML does not register the old service worker, but if the older app has previously been installed, test in Chrome Incognito to avoid stale caches.
 
-## Try a softball edit
-1. Import your ORIGINAL sports clip (not a screen recording of the old app).
-2. Scrub to the instant of the swing/contact.
-3. Tap **Highlight around this moment**; default 2 seconds before and 3 seconds after. Edit start/end if needed.
-4. Select a style. 0% means base edit only; 80% applies a real color/zoom/vignette/flash treatment.
-5. Optionally add a music file, adjust source/music levels, analyze candidate beats, and export WebM.
-6. Check the exported video and audio. For best compatibility use Chrome on Android.
+## Test
+Open `index.html` using a preview host that serves the development branch (GitHub Pages normally publishes `main`, not this branch). A quick way to test without modifying live Pages is GitHub Codespaces or another static preview. Once ready, merge the branch to main after testing. Do **not** assume the existing GitHub Pages URL shows dev branch changes.
 
-## Honest limitations
-- The app **does not** recognize a swing, ball, tackle or shot automatically. The user marks the action; the app preserves context.
-- No true optical-flow slow motion, speed ramps, generative AI, native .insv decoding, or 360 reframing yet.
-- 'Slow-Mo Impact' currently uses a brief zoom emphasis, **not** true slow motion.
-- Beat analysis finds rough audio-energy accents; it does not guarantee correct beat/drop timing.
-- Web browser exports WebM via MediaRecorder, not MP4. Browser performance and audio support vary. Export happens in real time, with the screen awake.
-- Imported music must be yours or licensed for your use. No upload server or subscriptions.
-- v0.4 JavaScript syntax checked; Android hardware playback/export must be tested by the user.
+Import original video, Auto-detect, inspect candidate moments, choose style/intensity, render, and download WebM.
+
+## Current limitations
+- Motion difference is **not** a trained sports event detector and may miss the swing.
+- Exports silent WebM (not MP4); does not add music or true slow motion.
+- Effects: contrast, saturation, animated zoom, vignette, brief hype flash.
+- Browser decode, canvas recording, and mobile performance vary. Test on device.
+- No claims of verified rendering on user's Samsung device.
+
+## Next engineering milestones
+1. Automated export tests using original softball footage and manual review of candidate segments.
+2. FFmpeg-powered MP4 pipeline with speed ramp, audio, and music.
+3. Pose and object tracking models with sport-specific event detection.
+4. Native Android processing for heavy video and 360 workflows.
